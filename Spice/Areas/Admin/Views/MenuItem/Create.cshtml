@@ -1,0 +1,82 @@
+﻿@model Spice.ViewModels.MenuCreateViewModel
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+
+    <div class="form-group row">
+        <div class="col-5">
+            <label asp-for="MenuItem.Name"></label>
+            <input asp-for="MenuItem.Name" />
+
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-5">
+            <label asp-for="MenuItem.Description"></label>
+            <input asp-for="MenuItem.Description" />
+
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-5">
+            <label asp-for="MenuItem.Price"></label>
+            <input asp-for="MenuItem.Price" />
+
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-5">
+            <label asp-for="Photo" class="col-form-label"></label>
+
+
+            <div class="custom-file">
+                <input asp-for="Photo" class="form-control" />
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+
+        <div class="col-5">
+            <label asp-for="MenuItem.Spicyness" class="col-form-label"></label>
+
+
+            <select asp-for="MenuItem.Spicyness" asp-items="Html.GetEnumSelectList<MenuItem.ESpicy>() " class="form-control"></select>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-2">
+
+            <label>List of Category</label>
+            <select asp-for="MenuItem.CategoryId" asp-items="@Model.CategoryDropdwnList">
+                <option>Please select one</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-5">
+            <button type="submit" class=" btn btn-primary"> Submit</button>
+        </div>
+    </div>
+
+
+</form>
+
+<style>.imageThumbnail {
+    height:200px;
+    width:auto;
+}
+    </style>
