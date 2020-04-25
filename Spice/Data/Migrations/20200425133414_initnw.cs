@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spice.Data.Migrations
 {
-    public partial class adduser : Migration
+    public partial class initnw : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

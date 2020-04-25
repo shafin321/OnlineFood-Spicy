@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Shujaul\\source\\repos\\Spice\\Spice\\Spice.csproj": {}
+    "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Shujaul\\source\\repos\\Spice\\Spice\\Spice.csproj": {
+    "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Shujaul\\source\\repos\\Spice\\Spice\\Spice.csproj",
+        "projectUniqueName": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj",
         "projectName": "Spice",
-        "projectPath": "C:\\Users\\Shujaul\\source\\repos\\Spice\\Spice\\Spice.csproj",
+        "projectPath": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj",
         "packagesPath": "C:\\Users\\Shujaul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Shujaul\\source\\repos\\Spice\\Spice\\obj\\",
+        "outputPath": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -63,7 +63,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             }
           },
           "imports": [

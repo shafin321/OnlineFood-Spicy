@@ -15,6 +15,7 @@ namespace Spice.Data
 		}
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<MenuItem> MenuItems { get; set; }
+		public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 	}

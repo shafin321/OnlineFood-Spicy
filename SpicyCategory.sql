@@ -1,0 +1,9 @@
+﻿
+SET IDENTITY_INSERT Categories ON
+INSERT INTO Categories(Id, Name)
+VALUES
+( 1, 'APETIZER' ),
+(2,'MAIN COURSE'),
+(3,'DESERT'),
+(4, 'BEVARAGES')
+SET IDENTITY_INSERT Categories OFF
