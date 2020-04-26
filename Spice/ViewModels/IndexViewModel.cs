@@ -8,9 +8,9 @@ namespace Spice.ViewModels
 {
 	public class IndexViewModel
 	{
-		public IEnumerable<MenuItem> MenuList { get; set; }
+		public IEnumerable<MenuItem> MenuItem { get; set; }
 
-		public IEnumerable<Category> CategoryList{ get; set; }
+		public IEnumerable<Category> Category{ get; set; }
 
 		public MenuCreateViewModel ImageClass { get; set; }
 

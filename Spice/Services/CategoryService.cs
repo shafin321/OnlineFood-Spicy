@@ -35,5 +35,14 @@ namespace Spice.Services
 
 			);
 		}
+
+		public Category Delete(int id)
+		{
+			var model = _context.Categories.Find(id);
+
+			_context.Remove(model);
+			_context.SaveChanges();
+			return model;
+		}
 	}
 }

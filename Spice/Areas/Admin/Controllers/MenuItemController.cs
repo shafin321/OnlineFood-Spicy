@@ -98,7 +98,7 @@ namespace Spice.Areas.Admin.Controllers
 
             }
 
-            return View();
+            return View(viewModel);
 
         }
     }

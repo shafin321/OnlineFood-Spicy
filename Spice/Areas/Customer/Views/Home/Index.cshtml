@@ -3,26 +3,34 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-    <div class="backgroundWhite container">
-
-        <ul id="menu-filters" class="menu-filter-list list-inline text-center">
-            <li class="active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant">Show All</li>
-
-            @foreach (var item in Model.CategoryList)
-            {
-                <li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
-            }
-        </ul>
+<br />
+<br />
 
 
-        @foreach (var category in Model.CategoryList)
+
+
+
+<div class="backgroundWhite container">
+
+    <ul id="menu-filters" class="menu-filter-list list-inline text-center">
+        <li class="active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant">Show All</li>
+
+        @foreach (var item in Model.Category)
         {
-            <div class="row" id="menu-wrapper">
-                <partial name="_ThumbNailAreaPertial" model="@Model.MenuList.Where(u=>u.Category.Name.Equals(category.Name))" />
-            </div>
+            <li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
         }
-    </div>
+    </ul>
+
+
+
+    @foreach (var category in Model.Category)
+    {
+        <div class="row" id="menu-wrapper">
+            <partial name="_ThumbNailAreaPertial" model="@Model.MenuItem.Where(u=>u.Category.Name.Equals(category.Name))" />
+        </div>
+    }
+</div>
+
 
 @section Scripts{
     <script src="https://code.jquery.com/jquery-3.3.1.js"
@@ -53,4 +61,4 @@
         })(jQuery);
 
     </script>
-} 
+}

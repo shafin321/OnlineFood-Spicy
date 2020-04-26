@@ -11,5 +11,6 @@ namespace Spice.Interface
 	{
 		IEnumerable<Category> GetAll();
 		IEnumerable<SelectListItem> GetMemberDropDownList();
+		Category Delete(int id);
 	}
 }

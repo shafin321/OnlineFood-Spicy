@@ -20,5 +20,12 @@ namespace Spice.Controllers
             var model = _category.GetAll();
             return View(model);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var model = _category.Delete(id);
+
+            return View("index");
+        }
     }
 }
