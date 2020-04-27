@@ -1,3 +1,4 @@
-.vs\Spice
-Spice\bin\**
-Spice\obj\**
+/.vs
+/.vs/Spice
+/Spice/bin
+/Spice/obj
