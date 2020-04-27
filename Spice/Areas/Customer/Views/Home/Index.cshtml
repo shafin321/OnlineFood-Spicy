@@ -1,64 +1,56 @@
 ﻿@model Spice.ViewModels.IndexViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 <br />
 <br />
 
-
-
-
-
 <div class="backgroundWhite container">
 
-    <ul id="menu-filters" class="menu-filter-list list-inline text-center">
-        <li class="active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant">Show All</li>
+	<ul id="menu-filters" class="menu-filter-list list-inline text-center">
+		<li class="active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant">Show All</li>
 
-        @foreach (var item in Model.Category)
-        {
-            <li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
-        }
-    </ul>
+		@foreach (var item in Model.Categories)
+		{
+			<li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
+		}
+	</ul>
 
-
-
-    @foreach (var category in Model.Category)
-    {
-        <div class="row" id="menu-wrapper">
-            <partial name="_ThumbNailAreaPertial" model="@Model.MenuItem.Where(u=>u.Category.Name.Equals(category.Name))" />
-        </div>
-    }
+	@foreach (var category in Model.Categories)
+	{
+		<div class="row" id="menu-wrapper">
+			<partial name="_ThumbNailAreaPartial" model="@Model.MenuItems.Where(u=>u.Category.Name.Equals(category.Name))" />
+		</div>
+	}
 </div>
 
-
 @section Scripts{
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		   crossorigin="anonymous"></script>
+	<script>
 
-    <script>
+		var posts = $('.post');
 
-        var posts = $('.post');
+		(function ($) {
 
-        (function ($) {
+			$("#menu-filters li").click(function () {
+				$("#menu-filters li").removeClass('active btn btn-secondary');
+				$(this).addClass('active btn btn-secondary');
 
-            $("#menu-filters li").click(function () {
-                $("#menu-filters li").removeClass('active btn btn-secondary');
-                $(this).addClass('active btn btn-secondary');
+				var selectedFilter = $(this).data("filter");
 
-                var selectedFilter = $(this).data("filter");
+				$(".menu-restaurant").fadeOut();
 
-                $(".menu-restaurant").fadeOut();
-
-                setTimeout(function () {
-                    $(selectedFilter).slideDown();
-                }, 300);
-            });
-
+				setTimeout(function () {
+					$(selectedFilter).slideDown();
+				}, 300);
+			});
 
 
-        })(jQuery);
 
-    </script>
+		})(jQuery);
+
+	</script>
 }

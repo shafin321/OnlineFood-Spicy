@@ -1,110 +1,122 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+
 using Spice.Data;
 using Spice.Models;
 using Spice.ViewModels;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Spice.Controllers
 {
 	[Area("Customer")]
 	public class HomeController : Controller
 	{
-
 		private readonly ApplicationDbContext _db;
+		private readonly UserManager<IdentityUser> _userManager;
 
-		public HomeController(ApplicationDbContext db)
+		public HomeController(
+			ApplicationDbContext db,
+			UserManager<IdentityUser> userManager
+		)
 		{
 			_db = db;
+			_userManager = userManager;
 		}
 
 		public IActionResult Index()
 		{
-
 			var menu = _db.MenuItems.Include(m => m.Category);
 
 			var viewmodel = new IndexViewModel
 			{
-				MenuItem=menu,
-				Category=_db.Categories
-
+				MenuItems = menu,
+				Categories = menu.Select(m => m.Category)
 			};
 			return View(viewmodel);
 		}
 
+		[Authorize]
 		[HttpGet]
-		public  ActionResult Details(int id)
+		public async Task<ActionResult> Details(int id)
 		{
-			var menuItemFromDb = _db.MenuItems.Include(m => m.Category).FirstOrDefault(m => m.Id == id);
+			var menuItemFromDb = await _db
+								.MenuItems
+								.Include(m => m.Category)
+								.SingleOrDefaultAsync(m => m.Id == id);
 
-			ShoppingCart cartobj = new ShoppingCart
-			{
-				MenuItem = menuItemFromDb,
-				MenuItemId = menuItemFromDb.Id,
-
-			};
-
-			return View(cartobj);
+			return View(menuItemFromDb);
 		}
 
+		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Details(ShoppingCart CartObject)
+		public async Task<IActionResult> Details(MenuItem menuItem)
 		{
-			CartObject.Id = 0;
 			if (ModelState.IsValid)
 			{
-				var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-				var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-				CartObject.ApplicationUserId = claim.Value;
+				var userId = _userManager.GetUserId(User);
 
-				ShoppingCart cartFromDb = await _db.ShoppingCarts.Where(c => c.ApplicationUserId == CartObject.ApplicationUserId
-												&& c.MenuItemId == CartObject.MenuItemId).SingleOrDefaultAsync();
+				var cartItems = await _db
+									.ShoppingCarts
+									.Where(c => c.UserId == userId)
+									.ToListAsync();
 
-				if (cartFromDb == null)
+				var matchingCartItem = cartItems
+									.SingleOrDefault(c
+										=> c.MenuItemId == menuItem.Id
+									);
+
+				if (matchingCartItem == null)
 				{
-					await _db.ShoppingCarts.AddAsync(CartObject);
+					_db.ShoppingCarts.Add(new ShoppingCart()
+					{
+						Count = 1,
+						MenuItemId = menuItem.Id,
+						UserId = userId
+					});
 				}
 				else
 				{
-					cartFromDb.Count = cartFromDb.Count + CartObject.Count;
+					matchingCartItem.Count += 1;
 				}
 				await _db.SaveChangesAsync();
 
-				var count = _db.ShoppingCarts.Where(c => c.ApplicationUserId == CartObject.ApplicationUserId).ToList().Count();
+				cartItems = await _db
+							.ShoppingCarts
+							.Where(c => c.UserId == userId)
+							.ToListAsync();
+				var count = cartItems.Count;
 				HttpContext.Session.SetInt32("Cart", count);
 
-				return RedirectToAction("Index");
+				return RedirectToAction(
+					"Index",
+					controllerName: "Home",
+					routeValues: new { area = "Customer" });
 			}
 			else
 			{
+				//var menuItemFromDb = await _db.MenuItems.Include(m => m.Category).Where(m => m.Id == CartObject.MenuItemId).FirstOrDefaultAsync();
 
-				var menuItemFromDb = await _db.MenuItems.Include(m => m.Category).Where(m => m.Id == CartObject.MenuItemId).FirstOrDefaultAsync();
+				//var cartObj = new ShoppingCart()
+				//{
+				//	MenuItem = menuItemFromDb,
+				//	MenuItemId = menuItemFromDb.Id
+				//};
 
-				ShoppingCart cartObj = new ShoppingCart()
-				{
-					MenuItem = menuItemFromDb,
-					MenuItemId = menuItemFromDb.Id
-				};
-
-				return View(cartObj);
+				return View(menuItem);
 			}
 		}
 
 		public IActionResult Privacy()
-		{
-			return View();
-		}
+			=> View();
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
+			=> View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 	}
 }
