@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +39,18 @@ namespace Spice.Controllers
 				MenuItems = menu,
 				Categories = menu.Select(m => m.Category)
 			};
+
+			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+			if (claim != null)
+			{
+				var cnt = _db.ShoppingCarts.Where(u => u.UserId == claim.Value).ToList().Count;
+				HttpContext.Session.SetInt32("Cart", cnt);
+			}
+
+
+
 			return View(viewmodel);
 		}
 
