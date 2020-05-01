@@ -59,7 +59,7 @@ namespace Spice.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var userId = _userManager.GetUserId(User);
+				var userId = _userManager.GetUserId(User);// currently loged in user 
 
 				var cartItems = await _db
 									.ShoppingCarts

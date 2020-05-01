@@ -8598,27 +8598,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rafsa.DESKTOP-F3TKHK3\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Users\\Shujaul\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Works\\Practices\\OnlineFood-Spicy\\Spice\\Spice.csproj",
+      "projectUniqueName": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj",
       "projectName": "Spice",
-      "projectPath": "D:\\Works\\Practices\\OnlineFood-Spicy\\Spice\\Spice.csproj",
-      "packagesPath": "C:\\Users\\rafsa.DESKTOP-F3TKHK3\\.nuget\\packages\\",
-      "outputPath": "D:\\Works\\Practices\\OnlineFood-Spicy\\Spice\\obj\\",
+      "projectPath": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\Spice.csproj",
+      "packagesPath": "C:\\Users\\Shujaul\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Shujaul\\source\\repos\\OnlineFood-Spicy\\Spice\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\rafsa.DESKTOP-F3TKHK3\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Shujaul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
